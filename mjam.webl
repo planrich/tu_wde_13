@@ -1,0 +1,96 @@
+// Übung 3 Web Data Extraction; Author: Florian Kromp, 0525342, 16.11.2013
+
+import Str;
+
+var plz = "1070";
+var city = "wien";
+var filter = "pizza";
+var urlstring;
+
+// Postleitzahl und Stadt sind Pflicht
+try
+	plz = ARGS[1];
+	city = ARGS[2];
+catch E
+	on true do PrintLn("Usage: java WebL mjam.webl <plz> <city> optional:<filter>");
+	Exit(-1);
+end;
+
+// Filter ist optional
+try
+	filter = ARGS[3];
+	urlstring = "http://www.mjam.net/"+city+"/"+plz+"/"+filter+"?page=all";
+catch E
+	on true do 
+	urlstring = "http://www.mjam.net/"+city+"/"+plz+"/"+"?page=all";
+end;
+
+// Start XML
+PrintLn("<elements>");
+var p = GetURL(urlstring);
+
+var container = Elem(p,"a"); // Alle Elemente auf www.mjam.net sind in a-Tags geschachtelt
+every containerallelements in container do
+try
+	if (Str_Compare(containerallelements.class,"linkToRestaurant")==0) then	
+		PrintLn("<restaurant>");
+		var containerspan=Elem(containerallelements,"span");
+		try
+			if (Str_Compare(containerspan[0].class,"name")==0) then
+				PrintLn("<name> " + Text(containerspan[0]) + "</name>");
+			end;
+		catch E
+				on true do nil;
+		end;
+		var art = 0;
+		// Process Name, Address
+		every spanelements in containerspan do	
+			try
+				if (Str_Compare(spanelements.class,"street")==0) then
+					Print("<address>" + Text(spanelements));
+				elsif (Str_Compare(spanelements.class,"zipCode")==0) then
+					Print(", " + Text(spanelements));
+				elsif (Str_Compare(spanelements.class,"city")==0) then
+					PrintLn(" " + Text(spanelements) +"</address>");
+				elsif (Str_Compare(spanelements.class,"cuisineSmall")==0) then
+					if (art==0) then		
+						art=1;
+						PrintLn("<food_type>" + Text(spanelements) + "</foodtype>");
+					end;
+				elsif (Str_Compare(spanelements.class,"reviews")==0) then
+					PrintLn("<ratings>" + Text(spanelements) + "</ratings>");
+				end;				
+			catch E
+				on true do nil;
+			end;
+		end;
+		// Process Opening hours
+		var openhours = Elem(containerallelements,"div");
+		every openhourshelper in openhours do
+			try
+				if ((Str_Compare(openhourshelper.class,"openhours nowClosed")==0) or (Str_Compare(openhourshelper.class,"openhours nowOpen")==0)) then
+						PrintLn("<openhours>" + Text(openhourshelper) + "</openhours>");
+				end;
+			catch E
+					on true do nil;
+			end;
+		end;
+		// Process Image Links
+		var images = Elem(containerallelements,"img");
+		every imageshelper in images do
+			try
+				if (Str_Compare(imageshelper.class,"restaurantLogoSmall")==0) then
+						PrintLn("<image>" + imageshelper.src + "</image>");
+				end;
+			catch E
+					on true do nil;
+			end;
+		end;
+		PrintLn("</restaurant>");
+	end;
+			catch E
+				on true do nil;
+			end;
+	
+	end;
+PrintLn("</elements>");	
