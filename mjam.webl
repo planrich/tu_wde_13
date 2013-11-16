@@ -55,7 +55,7 @@ try
 				elsif (Str_Compare(spanelements.class,"cuisineSmall")==0) then
 					if (art==0) then		
 						art=1;
-						PrintLn("<food_type>" + Text(spanelements) + "</foodtype>");
+						PrintLn("<food_type>" + Text(spanelements) + "</food_type>");
 					end;
 				elsif (Str_Compare(spanelements.class,"reviews")==0) then
 					PrintLn("<ratings>" + Text(spanelements) + "</ratings>");
