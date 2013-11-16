@@ -135,26 +135,34 @@ def extract_just_eat(zipcode, food_type):
 
 def main():
     if len(sys.argv) <= 1:
-        print("usage: query.py <zipcode,zipcode,...> <filter>\n  example: query.py M40,M50,1090 Pizza")
+        print("usage: query.py <zipcode,zipcode,...> <filter>")
+        print("  example: query.py M40,M50,1090 Pizza")
+        print("  -> results are then found in tmp.xml")
         return
     zipcodes = sys.argv[1].split(",")
     food_type = ""
     if len(sys.argv) >= 3:
         food_type = sys.argv[2]
 
-
     restaurants = []
+    print("fetching from %d sources. may take some time" % len(zipcodes))
     for zipcode in zipcodes:
 
         # this is the drawback of having two
         # data sources containing data that are
         # geologically separate. one cannot query the same zipcode...
         if zipcode_type(zipcode) == "uk":
-            rs = extract_just_eat(zipcode, food_type)
-            restaurants.extend(rs)
+            try:
+                rs = extract_just_eat(zipcode, food_type)
+                restaurants.extend(rs)
+            except Exception:
+                print("warning: could not extract %s from just eat" % zipcode)
         else:
-            rs = extract_mjam(zipcode, food_type)
-            restaurants.extend(rs)
+            try:
+                rs = extract_mjam(zipcode, food_type)
+                restaurants.extend(rs)
+            except Exception:
+                print("warning: could not extract %s from mjam" % zipcode)
 
     print("loaded data from web sources")
     def key(doc):
@@ -173,6 +181,7 @@ def main():
         document.append(restaurant)
     with open("tmp.xml", "wb") as f:
         f.write(ET.tostring(document))
+    print("written integrated data to 'tmp.xml'")
 
 if __name__ == "__main__":
     main()
