@@ -7,6 +7,7 @@ import xml.etree.ElementTree as ET
 import re
 import os
 import subprocess
+import webbrowser
 
 DAPPER_URL = "http://open.dapper.net/RunDapp?dappName=justeatuk&v=1&applyToUrl=http%3A%2F%2Fwww.just-eat.co.uk%2Farea%2FZIPCODE%2FFILTER"
 RESTAURANT_NAMES = set()
@@ -182,6 +183,6 @@ def main():
     with open("tmp.xml", "wb") as f:
         f.write(ET.tostring(document))
     print("written integrated data to 'tmp.xml'")
-
+    webbrowser.open_new("anzeige.htm")
 if __name__ == "__main__":
     main()
