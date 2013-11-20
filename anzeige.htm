@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Restaurant search</title>
+	<meta charset="UTF-8">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	<script type="text/javascript"> 
+	var countTablePosition = 1;
+	var restaurantProSpalte = 5;
+	
+		$(document).ready(function()
+		{
+			$.get( "tmp.xml", function( data ) 
+			{
+				var a = $(data).find("restaurant");
+				for (var i = 0; i < a.length; i = i+1)
+				{
+					$("#restaurantContainer").append("<hr><p>");
+					while (a[i].firstChild)
+					{
+						var nodeName =  a[i].firstChild.nodeName;
+						var nodeContent = a[i].firstChild.textContent;
+					if (nodeName == "name")	 { 	$("#restaurantContainer").append("<h3>"+nodeContent + "</h3>");		}
+						if (nodeName == "image")	 { 	$("#restaurantContainer").append("<img src='" + nodeContent + "'><br>");	}
+						if (nodeName == "address")	 { 	$("#restaurantContainer").append("<b>Adresse: </b>" + nodeContent + "<br>");		 }
+						if (nodeName == "food_type")	 { 	$("#restaurantContainer").append("<b>Art der Küche: </b>" + nodeContent + "<br>");	 }	
+						if (nodeName == "rating_count")	 { 	$("#restaurantContainer").append("<b>Number of Ratings : </b>" + nodeContent + "<br>");	 }	
+						if (nodeName == "ratings")	 { 	$("#restaurantContainer").append("<b>Ratings : </b>" + nodeContent + "<br>");	 }	
+						a[i].removeChild(a[i].firstChild);
+					}
+					$("#restaurantContainer").append("</p>");		
+				}
+			});
+		});                
+		</script>
+</head>
+<body>
+	<div id="restaurantContainer">
+	</div>
+</body>
+</html>
