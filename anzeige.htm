@@ -23,8 +23,9 @@
 						if (nodeName == "image")	 { 	$("#restaurantContainer").append("<img src='" + nodeContent + "'><br>");	}
 						if (nodeName == "address")	 { 	$("#restaurantContainer").append("<b>Adresse: </b>" + nodeContent + "<br>");		 }
 						if (nodeName == "food_type")	 { 	$("#restaurantContainer").append("<b>Art der Küche: </b>" + nodeContent + "<br>");	 }	
-						if (nodeName == "rating_count")	 { 	$("#restaurantContainer").append("<b>Number of Ratings : </b>" + nodeContent + "<br>");	 }	
-						if (nodeName == "ratings")	 { 	$("#restaurantContainer").append("<b>Ratings : </b>" + nodeContent + "<br>");	 }	
+						if (nodeName == "openhours")	 { 	$("#restaurantContainer").append("<b>Öffnungszeiten: </b>" + nodeContent + "<br>");	 }	
+						if (nodeName == "rating_count")	 { 	$("#restaurantContainer").append("<b>Anzahl der Bewertungen : </b>" + nodeContent + "<br>");	 }	
+						if (nodeName == "quality_rank")	 { 	$("#restaurantContainer").append("<b>Benutzer feedback: </b>" + nodeContent + "<br>");	 }	
 						a[i].removeChild(a[i].firstChild);
 					}
 					$("#restaurantContainer").append("</p>");		
