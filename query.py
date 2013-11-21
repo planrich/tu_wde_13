@@ -30,7 +30,7 @@ def zipcode_type(zipcode):
 def extract_mjam(zipcode, food_type):
     restaurants = []
 
-    proc = subprocess.Popen(['java', '-cp', 'WebL.zip', 'WebL', 'mjam.webl', zipcode, 'wien', food_type], stdout=subprocess.PIPE)
+    proc = subprocess.Popen(['java', '-cp', 'Webl.zip', 'WebL', 'mjam.webl', zipcode, 'wien', food_type], stdout=subprocess.PIPE)
 
     content = proc.stdout.read()
 
@@ -64,8 +64,10 @@ def extract_mjam(zipcode, food_type):
             ele.text = food_type.text.strip()
 
         for ratings in orig_restaurant.iter('ratings'):
-            ele = ET.SubElement(restaurant_ele, 'quality_rank')
-            ele.text = ratings.text.replace("QualityRank:","").strip()
+            content = ratings.text.replace("QualityRank:","").strip()
+            if re.match("^\d+$", content):
+                ele = ET.SubElement(restaurant_ele, 'quality_rank')
+                ele.text = content
 
         # not a duplicate -> append it to the xml document
         if not duplicate:
@@ -148,34 +150,37 @@ def main():
     restaurants = []
     print("fetching from %d sources. may take some time" % len(zipcodes))
     for zipcode in zipcodes:
+        print("fetching from %s..." % zipcode, end="")
 
         # this is the drawback of having two
         # data sources containing data that are
         # geologically separate. one cannot query the same zipcode...
-        if zipcode_type(zipcode) == "uk":
-            try:
-                rs = extract_just_eat(zipcode, food_type)
-                restaurants.extend(rs)
-            except Exception:
-                print("warning: could not extract %s from just eat" % zipcode)
-        else:
+        if zipcode_type(zipcode) == "at":
             try:
                 rs = extract_mjam(zipcode, food_type)
                 restaurants.extend(rs)
             except Exception:
                 print("warning: could not extract %s from mjam" % zipcode)
+        else:
+            try:
+                rs = extract_just_eat(zipcode, food_type)
+                restaurants.extend(rs)
+            except Exception:
+                print("warning: could not extract %s from just eat" % zipcode)
+        print("done")
 
     print("loaded data from web sources")
     def key(doc):
         r = doc.find('rating_count')
-        if r is not None:
+        if r is not None and re.match("^\d+$", r.text):
             return int(r.text)
+
         r = doc.find('quality_rank')
-        if r is not None:
+        if r is not None and re.match("^\d+$", r.text):
             return int(r.text)
         return 0
 
-    restaurants.sort(key=lambda doc: key(doc), reverse=True)
+    #restaurants.sort(key=lambda doc: key(doc), reverse=True)
 
     document = ET.Element('restaurants')
     for restaurant in restaurants:
@@ -183,6 +188,7 @@ def main():
     with open("tmp.xml", "wb") as f:
         f.write(ET.tostring(document))
     print("written integrated data to 'tmp.xml'")
-    webbrowser.open_new("anzeige.htm")
+    webbrowser.open_new_tab("file://%s/anzeige.htm" % (os.getcwd()))
+
 if __name__ == "__main__":
     main()

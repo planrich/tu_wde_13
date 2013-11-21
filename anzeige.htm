@@ -9,6 +9,7 @@
 	
 		$(document).ready(function()
 		{
+            var reload = function() {
 			$.get( "tmp.xml", function( data ) 
 			{
 				var a = $(data).find("restaurant");
@@ -31,10 +32,18 @@
 					$("#restaurantContainer").append("</p>");		
 				}
 			});
+            }
+
+            reload();
+            $("#reload").click(function(e){
+                $("#restaurantContainer").html("");
+                reload();
+            });
 		});                
 		</script>
 </head>
 <body>
+    <input id="reload" type="button" value="Neu laden" />
 	<div id="restaurantContainer">
 	</div>
 </body>
