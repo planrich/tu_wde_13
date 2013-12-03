@@ -10,6 +10,10 @@ class _Latch(object):
         self.count = count
         self.lock = threading.Condition()
 
+    def countUp(self):
+        with self.lock:
+            self.count += 1
+
     def countDown(self):
         with self.lock:
             self.count -= 1
@@ -27,7 +31,7 @@ logging.basicConfig(level=logging.INFO)
 
 class Hotel(object):
 
-    ATTRS = ["city","accommodation_type", "image", "name", "price", "detail_link", "room_type", "rating"]
+    ATTRS = ["city","accommodation_type", "image", "name", "price", "detail_link", "room_type", "rating", "payment_options", "motto", "latest_checkout", "details" ]
 
     def __init__(self, attr):
         for k,v in attr.items():
@@ -42,8 +46,20 @@ class Hotel(object):
             except Exception as e:
                 setattr(self,attribute,None)
 
+    def add_attributes(self, attrs):
+        for k,v in attrs.items():
+            if k in Hotel.ATTRS:
+                if isinstance(v,list):
+                    setattr(self,k,v[0])
+                else:
+                    setattr(self,k,v)
 
 hotels = []
+
+def find_hotel_by_url(url):
+    for hotel in hotels:
+        if hotel.detail_link == url:
+            return hotel
 
 def integrate(hotels, filename):
     root = ET.Element("hotels")
@@ -59,12 +75,45 @@ def integrate(hotels, filename):
         output.write(ET.tostring(root))
 
 
+latch = None
+client = importio.ImportIO(userId="7f7512f6-461c-4b7d-acc6-f217616e6ca1", apiKey="q2oOB5FKs3mkDfJMpleEU4jPOibqCRBFW/xtCNd7fUE8IUDX+cXq/rTNb6oYj+wIeSkc4TtO0u0cZKcyApXtjg==")
+
+def callback_detail(query, message):
+
+    if message["type"] == "MESSAGE": 
+        data = message.get("data")
+        if data is not None and data.get("results") is not None:
+            results = data.get("results")
+            #process(results)
+            hotel = find_hotel_by_url(data.get("pageUrl"))
+            if hotel is not None:
+                print("found hotel %s" % data.get("pageUrl"))
+                for result in results:
+                    hotel.add_attributes(result)
+        else:
+            print "could not get data from import.io. API broken?"
+
+    if query.finished():
+        latch.countDown()
 
 def process(results):
     for result in results:
-        hotels.append(Hotel(result))
+        hotel = Hotel(result)
+        hotels.append(hotel)
+        if hotel.detail_link is not None:
+            latch.countUp()
+            print("processing detail page")
+            client.query({
+              "connectorGuids": [
+                "4009ebba-9eab-459a-81ca-18cdd49102b9"
+              ],
+              "input": {
+                "webpage/url": hotel.detail_link
+              }
+            }, callback_detail)
 
-latch = None
+
+
 
 def callback(query, message):
 
@@ -97,7 +146,7 @@ def integrate_mozenda_mock(filename):
 
 def main(search_inputs, date_from, date_to):
     # Initialise the library
-    client = importio.ImportIO(userId="7f7512f6-461c-4b7d-acc6-f217616e6ca1", apiKey="q2oOB5FKs3mkDfJMpleEU4jPOibqCRBFW/xtCNd7fUE8IUDX+cXq/rTNb6oYj+wIeSkc4TtO0u0cZKcyApXtjg==")
+
     client.connect()
 
     # Use a latch to stop the program from exiting
