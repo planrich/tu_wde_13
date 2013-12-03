@@ -1,0 +1,227 @@
+<Allitems>
+
+	<Item>
+		<Name>The Levante Parliament</Name>
+		<image></image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>116 €</price>
+	</Item>
+
+	<Item>
+		<Name>25hours Hotel at MuseumsQuartier</Name>
+		<image>http://exp.cdn-hotels.com/hotels/2000000/1950000/1943200/1943117/1943117_50_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>170 €</price>
+	</Item>
+
+	<Item>
+		<Name>Derag Livinghotel City Apartments Wien</Name>
+		<image>http://exp.cdn-hotels.com/hotels/4000000/3090000/3089700/3089668/3089668_85_b.jpg</image>
+		<Bewertung>Exzellent</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>111 €</price>
+	</Item>
+
+	<Item>
+		<Name>Hotel Sacher Wien</Name>
+		<image>http://exp.cdn-hotels.com/hotels/1000000/30000/25900/25831/25831_149_b.jpg</image>
+		<Bewertung>Exzellent</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>430 €</price>
+	</Item>
+
+	<Item>
+		<Name>Hotel Nestroy Wien</Name>
+		<image>http://exp.cdn-hotels.com/hotels/1000000/20000/13700/13647/13647_171_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>91 €</price>
+	</Item>
+
+	<Item>
+		<Name>Tourotel Mariahilf</Name>
+		<image>http://exp.cdn-hotels.com/hotels/1000000/890000/885500/885473/885473_31_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>82 €</price>
+	</Item>
+
+	<Item>
+		<Name>Star Inn Hotel Wien Schönbrunn</Name>
+		<image>http://exp.cdn-hotels.com/hotels/6000000/5860000/5857500/5857455/5857455_8_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>60 €</price>
+	</Item>
+
+	<Item>
+		<Name>Arcotel Wimberger Vienna</Name>
+		<image>http://exp.cdn-hotels.com/hotels/1000000/20000/17500/17448/17448_107_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>70 €</price>
+	</Item>
+
+	<Item>
+		<Name>Hotel Senator</Name>
+		<image>http://exp.cdn-hotels.com/hotels/3000000/2220000/2219000/2218911/2218911_37_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>49 €</price>
+	</Item>
+
+	<Item>
+		<Name><![CDATA[A&O Wien Hauptbahnhof]]></Name>
+		<image>http://exp.cdn-hotels.com/hotels/6000000/5970000/5961200/5961179/5961179_26_b.jpg</image>
+		<Bewertung>Gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>27 €</price>
+	</Item>
+
+	<Item>
+		<Name>Delta Hotel Wien</Name>
+		<image>http://exp.cdn-hotels.com/hotels/2000000/1410000/1406200/1406170/1406170_20_b.jpg</image>
+		<Bewertung>Gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>51 €</price>
+	</Item>
+
+	<Item>
+		<Name>Hotel KUNSThof</Name>
+		<image>http://exp.cdn-hotels.com/hotels/1000000/560000/551900/551812/551812_43_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>49 €</price>
+	</Item>
+
+	<Item>
+		<Name>Hotel Baron am Schottentor</Name>
+		<image>http://exp.cdn-hotels.com/hotels/7000000/6010000/6006500/6006495/6006495_8_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>59 €</price>
+	</Item>
+
+	<Item>
+		<Name><![CDATA[A&O Wien Stadthalle]]></Name>
+		<image>http://exp.cdn-hotels.com/hotels/3000000/2250000/2246200/2246188/2246188_24_b.jpg</image>
+		<Bewertung>Gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>30 €</price>
+	</Item>
+
+	<Item>
+		<Name>Amedia Hotel Wien</Name>
+		<image>http://exp.cdn-hotels.com/hotels/5000000/4810000/4808900/4808803/4808803_54_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>89 €</price>
+	</Item>
+
+	<Item>
+		<Name>Mercure Josefshof Wien</Name>
+		<image>http://exp.cdn-hotels.com/hotels/1000000/450000/443600/443505/443505_116_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>112 €</price>
+	</Item>
+
+	<Item>
+		<Name>Atlantis Hotel Vienna</Name>
+		<image>http://exp.cdn-hotels.com/hotels/1000000/570000/564300/564238/564238_34_b.jpg</image>
+		<Bewertung>Gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>60 €</price>
+	</Item>
+
+	<Item>
+		<Name>pentahotel Vienna</Name>
+		<image>http://exp.cdn-hotels.com/hotels/1000000/20000/14700/14678/14678_75_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>104 €</price>
+	</Item>
+
+	<Item>
+		<Name>Falkensteiner Hotel Am Schottenfeld</Name>
+		<image>http://exp.cdn-hotels.com/hotels/2000000/1140000/1133400/1133375/1133375_143_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>170 €</price>
+	</Item>
+
+	<Item>
+		<Name>La Prima Fashion Hotel Vienna</Name>
+		<image>http://exp.cdn-hotels.com/hotels/6000000/5350000/5341900/5341806/5341806_24_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>79 €</price>
+	</Item>
+
+	<Item>
+		<Name>BEST WESTERN PREMIER Kaiserhof Wien</Name>
+		<image>http://exp.cdn-hotels.com/hotels/1000000/10000/4100/4006/4006_89_b.jpg</image>
+		<Bewertung>Exzellent</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>170 €</price>
+	</Item>
+
+	<Item>
+		<Name>Austria Trend Hotel Messe</Name>
+		<image>http://exp.cdn-hotels.com/hotels/2000000/1190000/1181200/1181145/1181145_11_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>85 €</price>
+	</Item>
+
+	<Item>
+		<Name>InterCityHotel Wien</Name>
+		<image>http://exp.cdn-hotels.com/hotels/1000000/550000/548900/548851/548851_63_b.jpg</image>
+		<Bewertung>Gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>97 €</price>
+	</Item>
+
+	<Item>
+		<Name>Hotel Pension Kaffeemuehle</Name>
+		<image>http://exp.cdn-hotels.com/hotels/2000000/1390000/1382800/1382769/1382769_56_b.jpg</image>
+		<Bewertung>Gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>35 €</price>
+	</Item>
+
+	<Item>
+		<Name><![CDATA[K&K Hotel Maria Theresia]]></Name>
+		<image>http://exp.cdn-hotels.com/hotels/1000000/10000/5900/5855/5855_16_b.jpg</image>
+		<Bewertung>Exzellent</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>135 €</price>
+	</Item>
+
+	<Item>
+		<Name>Hotel Arpi</Name>
+		<image>http://exp.cdn-hotels.com/hotels/3000000/2530000/2526100/2526092/2526092_47_b.jpg</image>
+		<Bewertung>Gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>33 €</price>
+	</Item>
+
+	<Item>
+		<Name>Hotel Capri</Name>
+		<image>http://exp.cdn-hotels.com/hotels/2000000/1140000/1133200/1133112/1133112_106_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>107 €</price>
+	</Item>
+
+	<Item>
+		<Name>Lindner Hotel am Belvedere</Name>
+		<image>http://exp.cdn-hotels.com/hotels/2000000/1690000/1681900/1681891/1681891_32_b.jpg</image>
+		<Bewertung>Sehr gut</Bewertung>
+		<city>Wien, Österreich</city>
+		<price>259 €</price>
+	</Item>
+
+</Allitems>

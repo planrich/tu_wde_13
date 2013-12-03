@@ -27,7 +27,7 @@ logging.basicConfig(level=logging.INFO)
 
 class Hotel(object):
 
-    ATTRS = ["city","accommodation_type", "image", "name", "price", "detail_link", "room_type"]
+    ATTRS = ["city","accommodation_type", "image", "name", "price", "detail_link", "room_type", "rating"]
 
     def __init__(self, attr):
         for k,v in attr.items():
@@ -35,6 +35,7 @@ class Hotel(object):
                 setattr(self,k,v[0])
             else:
                 setattr(self,k,v)
+        # set None as the default for all attributes
         for attribute in Hotel.ATTRS:
             try:
                 getattr(self,attribute)
@@ -80,6 +81,20 @@ def callback(query, message):
 
     if query.finished(): latch.countDown()
 
+def integrate_mozenda_mock(filename):
+    print("integrating the static files from monzenda!")
+    with open(filename,"r") as inputfile:
+        xml_string = inputfile.read()
+        root = ET.fromstring(xml_string)
+        attributes = { "name": "Name", "image": "image", "rating": "Bewertung", "city": "city", "price": "price" }
+        for item in root.iter("Item"):
+            attrs = {}
+            for k, attr in attributes.items():
+                for tag in item.iter(attr):
+                    attrs[k] = tag.text
+            hotel = Hotel(attrs)
+            hotels.append(hotel)
+
 def main(search_inputs, date_from, date_to):
     # Initialise the library
     client = importio.ImportIO(userId="7f7512f6-461c-4b7d-acc6-f217616e6ca1", apiKey="q2oOB5FKs3mkDfJMpleEU4jPOibqCRBFW/xtCNd7fUE8IUDX+cXq/rTNb6oYj+wIeSkc4TtO0u0cZKcyApXtjg==")
@@ -88,6 +103,8 @@ def main(search_inputs, date_from, date_to):
     # Use a latch to stop the program from exiting
     global latch
     latch = _Latch(len(search_inputs)) 
+
+    integrate_mozenda_mock("monzenda.xml")
 
     for search_input in search_inputs:
     # Query for widget wde_visual_wrapper
