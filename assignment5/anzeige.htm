@@ -1,0 +1,177 @@
+<!--
+	InfoBox downloaded from www.web-toolbox.net
+-->
+<html>
+<head>
+	<title>hotel search</title>
+	<meta charset="UTF-8">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	<script type="text/javascript"> 
+	var offsetx=20
+	var offsety=0
+
+	function InfoBoxAusblenden() {
+		document.getElementById('InfoBox').style.visibility = "hidden";
+	}
+
+	function InfoBoxAnzeigen(e,Inhalte,offsetX,offsetY)
+	{
+        if (offsetX) {offsetx=offsetX;} else {offsetx=20;}
+        if (offsetY) {offsety=offsetY;} else {offsety=0;}
+        var PositionX = 0;
+        var PositionY = 0;
+        if (!e) var e = window.event;
+        if (e.pageX || e.pageY)
+        {
+                PositionX = e.pageX;
+                PositionY = e.pageY;
+        }
+        else if (e.clientX || e.clientY)
+        {
+                PositionX = e.clientX + document.body.scrollLeft;
+                PositionY = e.clientY + document.body.scrollTop;
+        }
+        document.getElementById("BoxInhalte").innerHTML = Inhalte;
+        document.getElementById('InfoBox').style.left = (PositionX+offsetx)+"px";
+        document.getElementById('InfoBox').style.top = (PositionY+offsety)+"px";
+        document.getElementById('InfoBox').style.visibility = "visible";
+	}
+	
+	
+	var countTablePosition = 0;
+	var hotelProSpalte = 4;
+	
+		$(document).ready(function()
+		{
+            var reload = function() {
+			$.get( "tmp.xml", function( data ) 
+			{
+				var a = $(data).find("hotel");
+				var centered = document.createElement("center");
+				var tmp_table = document.createElement("table");
+			
+				for (var i = 0; i < a.length; i = i+1)	// für jedes Hotel
+				{
+					var structured_entries = new Object();
+					
+					while (a[i].firstChild)	// Content befüllen
+					{
+						var nodeName =  a[i].firstChild.nodeName;
+						var nodeContent = a[i].firstChild.textContent;
+						structured_entries[nodeName] = nodeContent;
+						a[i].removeChild(a[i].firstChild);
+					}
+					if (( countTablePosition == 0) || (countTablePosition == hotelProSpalte))
+					{
+						if (countTablePosition != 0)
+						{
+							tmp_table.appendChild(tmp_tr);
+						}
+						
+						countTablePosition = 0;
+						var tmp_tr = document.createElement("tr");
+					}
+					countTablePosition = countTablePosition + 1;
+					image_available = 0;
+					for (property in structured_entries)
+					{
+						if (property == "image")
+						{
+							image_available = 1;
+							var box_text = '';
+							for (property2 in structured_entries)
+							{
+								if (property2 != 'image')
+								{
+									box_text = box_text + property2 + ': ' + structured_entries[property2] + '<br>';
+								}
+							}
+							var a_link = document.createElement("a");
+							a_link.setAttribute("onMouseOver","InfoBoxAnzeigen(event,'" + box_text+ "',-20,30)");
+							a_link.setAttribute("onMouseOut","InfoBoxAusblenden()");
+							var tmp_td = document.createElement("td");
+							var tmp_center = document.createElement("center");
+							var tmp_image = document.createElement("img");
+							tmp_image.setAttribute("src",structured_entries[property]);
+							tmp_image.setAttribute("width",90);
+							a_link.appendChild(tmp_image);
+							tmp_center.appendChild(a_link);
+							tmp_td.appendChild(tmp_center);
+							tmp_tr.appendChild(tmp_td);
+						}
+					}
+					if (image_available == 0)
+					{
+							var box_text = '';
+							for (property2 in structured_entries)
+							{
+								if (property2 != 'image')
+								{
+									box_text = box_text + property2 + ': ' + structured_entries[property2] + '<br>';
+								}
+							}
+							var a_link = document.createElement("a");
+							a_link.setAttribute("onMouseOver","InfoBoxAnzeigen(event,'" + box_text+ "',-20,30)");
+							a_link.setAttribute("onMouseOut","InfoBoxAusblenden()");
+							var tmp_td = document.createElement("td");
+							var tmp_center = document.createElement("center");
+							var tmp_bold = document.createElement("b");
+							tmp_bold.appendChild(document.createTextNode("No Image"));
+							a_link.appendChild(tmp_bold);
+							tmp_center.appendChild(a_link);
+							tmp_td.appendChild(tmp_center);
+							tmp_tr.appendChild(tmp_td);
+					}
+			}	
+					centered.appendChild(tmp_table);
+					document.getElementById('hotelContainer').appendChild(centered);
+				
+			});
+            
+			}
+            reload();
+		});                
+		</script>
+		<style type="text/css">
+
+#InfoBox {
+visibility:hidden;
+position:absolute;
+top:10px;
+left:10px;
+z-index:1;
+
+/* diese Angaben können Sie anpassen */
+width:300px;
+background-color:#FDFEFF;
+border:4px solid #0090E0;
+}
+
+
+/* weitere Box in der Info-Box für padding */
+#BoxInnen {
+padding:15px;
+}
+
+
+/* Formatierung Texte in der Info-Box */
+
+#BoxInhalte {
+font-family:Verdana,Arial,Helvetica,sans-serif;
+font-size:11px;
+color:#5F5F5F;
+line-height:130%;
+}
+
+</style>
+</head>
+<body>
+<center><h2>Ergebnisse</h2></center>
+<div id="InfoBox" style="z-index:1; visibility:hidden;">
+<div id="BoxInnen"><span id="BoxInhalte">&nbsp;</span></div>
+</div>
+	<div id="hotelContainer">
+	</div>
+
+</body>
+</html>
