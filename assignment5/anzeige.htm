@@ -39,7 +39,7 @@
 	
 	
 	var countTablePosition = 0;
-	var hotelProSpalte = 4;
+	var hotelProSpalte = 10;
 	
 		$(document).ready(function()
 		{
@@ -73,6 +73,7 @@
 					}
 					countTablePosition = countTablePosition + 1;
 					image_available = 0;
+					source = 0;
 					for (property in structured_entries)
 					{
 						if (property == "image")
@@ -85,11 +86,19 @@
 								{
 									box_text = box_text + property2 + ': ' + structured_entries[property2] + '<br>';
 								}
+								if (property2 == "accommodation_type")
+								{
+									source = 1;
+								}
 							}
 							var a_link = document.createElement("a");
 							a_link.setAttribute("onMouseOver","InfoBoxAnzeigen(event,'" + box_text+ "',-20,30)");
 							a_link.setAttribute("onMouseOut","InfoBoxAusblenden()");
 							var tmp_td = document.createElement("td");
+							if (source == 0)
+							{	tmp_td.setAttribute("style",'border-color:green;border-width:3px;border-style:solid;');	}
+							else
+							{	tmp_td.setAttribute("style",'border-color:red;border-width:3px;border-style:solid;');	}
 							var tmp_center = document.createElement("center");
 							var tmp_image = document.createElement("img");
 							tmp_image.setAttribute("src",structured_entries[property]);
@@ -114,6 +123,10 @@
 							a_link.setAttribute("onMouseOver","InfoBoxAnzeigen(event,'" + box_text+ "',-20,30)");
 							a_link.setAttribute("onMouseOut","InfoBoxAusblenden()");
 							var tmp_td = document.createElement("td");
+							if (source == 0)
+							{	tmp_td.setAttribute("style",'border-color:green;border-width:3px;border-style:solid;');	}
+							else
+							{	tmp_td.setAttribute("style",'border-color:red;border-width:3px;border-style:solid;');	}
 							var tmp_center = document.createElement("center");
 							var tmp_bold = document.createElement("b");
 							tmp_bold.appendChild(document.createTextNode("No Image"));
