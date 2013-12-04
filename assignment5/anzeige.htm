@@ -54,14 +54,15 @@
 				{
 					var structured_entries = new Object();
 					
-					while (a[i].firstChild)	// Content befüllen
+					while (a[i].firstChild)	// Jeden Tag von Hotel extrahieren und im Objekt structured_entries speichern
 					{
 						var nodeName =  a[i].firstChild.nodeName;
 						var nodeContent = a[i].firstChild.textContent;
 						structured_entries[nodeName] = nodeContent;
 						a[i].removeChild(a[i].firstChild);
 					}
-					if (( countTablePosition == 0) || (countTablePosition == hotelProSpalte))
+					
+					if (( countTablePosition == 0) || (countTablePosition == hotelProSpalte)) // Pro Zeile soll es eine Anzahl von countTablePosition an Hotels geben
 					{
 						if (countTablePosition != 0)
 						{
@@ -74,7 +75,12 @@
 					countTablePosition = countTablePosition + 1;
 					image_available = 0;
 					source = 0;
-					for (property in structured_entries)
+					var a_link = document.createElement("a");		
+					a_link.setAttribute("onMouseOver","InfoBoxAnzeigen(event,'" + box_text+ "',-20,30)");
+					a_link.setAttribute("onMouseOut","InfoBoxAusblenden()");
+					var tmp_image = document.createElement("img");
+					
+					for (property in structured_entries) 	// alle Eigenschaften (=Tags) vom Objekt structured_entries auslesen und als Info für die Textbox hinzufügen
 					{
 						if (property == "image")
 						{
@@ -91,54 +97,48 @@
 									source = 1;
 								}
 							}
-							var a_link = document.createElement("a");
-							a_link.setAttribute("onMouseOver","InfoBoxAnzeigen(event,'" + box_text+ "',-20,30)");
-							a_link.setAttribute("onMouseOut","InfoBoxAusblenden()");
-							var tmp_td = document.createElement("td");
-							if (source == 0)
-							{	tmp_td.setAttribute("style",'border-color:green;border-width:3px;border-style:solid;');	}
-							else
-							{	tmp_td.setAttribute("style",'border-color:red;border-width:3px;border-style:solid;');	}
-							var tmp_center = document.createElement("center");
-							var tmp_image = document.createElement("img");
+
 							tmp_image.setAttribute("src",structured_entries[property]);
 							tmp_image.setAttribute("width",90);
-							a_link.appendChild(tmp_image);
-							tmp_center.appendChild(a_link);
-							tmp_td.appendChild(tmp_center);
-							tmp_tr.appendChild(tmp_td);
 						}
 					}
+					var box_text = '';
+					for (property2 in structured_entries)
+					{
+						if (property2 != 'image')
+						{
+							box_text = box_text + property2 + ': ' + structured_entries[property2] + '<br>';
+						}
+					}
+					var a_link = document.createElement("a");
+					a_link.setAttribute("onMouseOver","InfoBoxAnzeigen(event,'" + box_text+ "',-20,30)");
+					a_link.setAttribute("onMouseOut","InfoBoxAusblenden()");
+					var tmp_td = document.createElement("td");
+					if (source == 0) // Inhalt kommt von Mozenda
+					{	
+						tmp_td.setAttribute("style",'border-color:green;border-width:3px;border-style:solid;');	
+					}
+					else // Inhalt kommt von import.io
+					{	
+						tmp_td.setAttribute("style",'border-color:red;border-width:3px;border-style:solid;');	
+					}
+					var tmp_center = document.createElement("center");
+					var tmp_bold = document.createElement("b");
 					if (image_available == 0)
 					{
-							var box_text = '';
-							for (property2 in structured_entries)
-							{
-								if (property2 != 'image')
-								{
-									box_text = box_text + property2 + ': ' + structured_entries[property2] + '<br>';
-								}
-							}
-							var a_link = document.createElement("a");
-							a_link.setAttribute("onMouseOver","InfoBoxAnzeigen(event,'" + box_text+ "',-20,30)");
-							a_link.setAttribute("onMouseOut","InfoBoxAusblenden()");
-							var tmp_td = document.createElement("td");
-							if (source == 0)
-							{	tmp_td.setAttribute("style",'border-color:green;border-width:3px;border-style:solid;');	}
-							else
-							{	tmp_td.setAttribute("style",'border-color:red;border-width:3px;border-style:solid;');	}
-							var tmp_center = document.createElement("center");
-							var tmp_bold = document.createElement("b");
-							tmp_bold.appendChild(document.createTextNode("No Image"));
-							a_link.appendChild(tmp_bold);
-							tmp_center.appendChild(a_link);
-							tmp_td.appendChild(tmp_center);
-							tmp_tr.appendChild(tmp_td);
+						tmp_bold.appendChild(document.createTextNode("No Image"));
 					}
-			}	
-					centered.appendChild(tmp_table);
-					document.getElementById('hotelContainer').appendChild(centered);
-				
+					else
+					{		
+						a_link.appendChild(tmp_image);
+					}
+					a_link.appendChild(tmp_bold);
+					tmp_center.appendChild(a_link);
+					tmp_td.appendChild(tmp_center);
+					tmp_tr.appendChild(tmp_td);
+				}	
+				centered.appendChild(tmp_table);
+				document.getElementById('hotelContainer').appendChild(centered);				
 			});
             
 			}
