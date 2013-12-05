@@ -37,6 +37,8 @@ class Hotel(object):
         for k,v in attr.items():
             if isinstance(v,list):
                 setattr(self,k,v[0])
+                if k == "image" and v[0] == "http://media.images-tiscover.com/at/i08/v4/icons/emptyHotelPic.png":
+                    setattr(self,k,v[1])
             else:
                 setattr(self,k,v)
         # set None as the default for all attributes
