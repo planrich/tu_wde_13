@@ -3,24 +3,16 @@
 # Author: Florian Kromp, Richard Plangger
 # 08.12.2013
 
-# Jaro Winkler metric; based on the implementation of SimMetrics:
-# * Copyright (C) 2005 Sam Chapman - Open Source Release v1.1
-# * email:       s.chapman@dcs.shef.ac.uk
-# * www:         http://www.dcs.shef.ac.uk/~sam/
-# * www:         http://www.dcs.shef.ac.uk/~sam/stringmetrics.html
-# *
-# * address:     Sam Chapman,
-# *              Department of Computer Science,
-# *              University of Sheffield,
-# *              Sheffield,
-# *              S. Yorks,
-# *              S1 4DP
-# *              United Kingdom,
+# Jaro metric; based on the implementation of SimMetrics:
+# We have later implemented it according to
+# http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
+# because the impl. in the java
+#
+# Jaro winkler is implemented according to the wiki link above
 
 my $string1;
 my $string2;
 my $threshold;
-
 
 if (!($ARGV[1]))
 {
