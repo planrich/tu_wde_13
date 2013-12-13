@@ -104,7 +104,7 @@ sub getSimilarity
     # computes the Jaro-Winkler distance metric based on Common Characters and Transpositions
     my $string1 = shift;
     my $string2 = shift;
-    my $halflen = (min(length($string1), length($string2)) / 2) + 1;
+    my $halflen = int((min(length($string1), length($string2)) / 2) + 1);
 
     my @string1Common = getCommonCharacters($string1, $string2, $halflen);
     my @string2Common = getCommonCharacters($string2, $string1, $halflen);
