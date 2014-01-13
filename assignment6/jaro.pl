@@ -128,6 +128,7 @@ sub getSimilarity
             $transpositions++;
         }
     }
+    $transpositions = $transpositions / 2;
     my $inner = ($laengeCommon1 / length($string1)) + 
                 ($laengeCommon2 / length($string2)) + 
                 (($laengeCommon1 - $transpositions) / ($laengeCommon1));
